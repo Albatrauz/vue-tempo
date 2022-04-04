@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.devcontainer
+.devilbox
 
 # Editor directories and files
 .vscode/*
