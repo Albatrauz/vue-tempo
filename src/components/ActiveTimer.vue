@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
+import displayTime from '../utils/displayTime.js';
 import { useCurrentTimer } from '../store/store.js';
 
 // const currentTimer = useCurrentTimer();
@@ -11,6 +12,23 @@ const stopwatch = reactive({
   intervalId: '',
   isActive: false,
 });
+
+function startStopwatch() {
+  //reset start time
+  stopwatch.startTime = Date.now();
+  //run `setInterval()` and save id
+  stopwatch.intervalId = setInterval(() => {
+    //calculate elapsed time
+    const elapsedTime =
+      Date.now() - stopwatch.startTime + stopwatch.elapsedTime;
+    //calculate different time measurements based on elapsed time
+    const seconds = parseInt((elapsedTime / 1000) % 60);
+    const minutes = parseInt((elapsedTime / (1000 * 60)) % 60);
+    const hour = parseInt((elapsedTime / (1000 * 60 * 60)) % 24);
+    //display time
+    displayTime(hour, minutes, seconds, stopwatch);
+  }, 100);
+}
 
 onMounted(() => {
   startStopwatch();
@@ -27,42 +45,10 @@ const pauseCurrentTimer = () => {
   stopwatch.isActive = false;
 };
 
-const resetCurrentTimer = () => {
-  stopwatch.elapsedTime = 0;
-  stopwatch.startTime = Date.now();
-  displayTime(0, 0, 0);
-  stopwatch.isActive = false;
-};
-
 const resumeCurrentTimer = () => {
-  stopwatch.elapsedTime += Date.now() - stopwatch.startTime;
-  clearInterval(stopwatch.intervalId);
+  startStopwatch();
   stopwatch.isActive = true;
 };
-
-function startStopwatch() {
-  //reset start time
-  stopwatch.startTime = Date.now();
-  //run `setInterval()` and save id
-  stopwatch.intervalId = setInterval(() => {
-    //calculate elapsed time
-    const elapsedTime =
-      Date.now() - stopwatch.startTime + stopwatch.elapsedTime;
-    //calculate different time measurements based on elapsed time
-    const seconds = parseInt((elapsedTime / 1000) % 60);
-    const minutes = parseInt((elapsedTime / (1000 * 60)) % 60);
-    const hour = parseInt((elapsedTime / (1000 * 60 * 60)) % 24);
-    //display time
-    displayTime(hour, minutes, seconds);
-  }, 100);
-}
-
-function displayTime(hour, minutes, seconds) {
-  const leadZeroTime = [hour, minutes, seconds].map((time) =>
-    time < 10 ? `0${time}` : time
-  );
-  stopwatch.currentTime = leadZeroTime.join(':');
-}
 </script>
 
 <template>
@@ -76,16 +62,18 @@ function displayTime(hour, minutes, seconds) {
       <button
         id="pause-button"
         class="control-buttons"
-        @click="stopwatch.isActive ? pauseCurrentTimer() : resumeCurrentTimer()"
+        @click="pauseCurrentTimer"
+        v-if="stopwatch.isActive"
       >
         Pause
       </button>
       <button
         id="clear-button"
         class="control-buttons"
-        @click="resetCurrentTimer"
+        @click="resumeCurrentTimer"
+        v-else
       >
-        Clear
+        Resume
       </button>
     </div>
   </div>
