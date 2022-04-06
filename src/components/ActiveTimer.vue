@@ -73,6 +73,7 @@ function displayTime(hour, minutes, seconds) {
   <div class="stopwatch-wrapper">
     <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
     <div class="control-buttons-wrapper">
+      <font-awesome-icon icon="circle-pause" fixed-width color="FF0000" />
       <button
         id="pause-button"
         class="control-buttons"
@@ -98,5 +99,11 @@ function displayTime(hour, minutes, seconds) {
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.control__buttons-wrapper {
+  svg {
+    fill: white;
+  }
 }
 </style>
