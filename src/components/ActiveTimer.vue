@@ -1,16 +1,14 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
 import displayTime from '../utils/displayTime.js';
-import { useCurrentTimer } from '../store/store.js';
-
-// const currentTimer = useCurrentTimer();
 
 const stopwatch = reactive({
   currentTime: '',
   elapsedTime: 0,
   startTime: 0,
   intervalId: '',
-  isActive: false,
+  isRunning: false,
+  isActive: false
 });
 
 function startStopwatch() {
@@ -32,22 +30,23 @@ function startStopwatch() {
 
 onMounted(() => {
   startStopwatch();
+  stopwatch.isRunning = true;
   stopwatch.isActive = true;
-  // currentTimer.isActive = true;
-  // currentTimer.startTime = stopwatch.startTime;
 });
 
 const pauseCurrentTimer = () => {
   stopwatch.elapsedTime += Date.now() - stopwatch.startTime;
-  // currentTimer.elapsedTime = stopwatch.elapsedTime;
-  // currentTimer.currentTime = stopwatch.currentTime;
   clearInterval(stopwatch.intervalId);
-  stopwatch.isActive = false;
+  stopwatch.isRunning = false;
 };
+
+const deleteCurrentTimer = () => {
+  stopwatch.isActive = false;
+}
 
 const resumeCurrentTimer = () => {
   startStopwatch();
-  stopwatch.isActive = true;
+  stopwatch.isRunning = true;
 };
 </script>
 
@@ -56,24 +55,28 @@ const resumeCurrentTimer = () => {
     <div class="active-timer--play"></div>
   </div>
 
-  <div class="stopwatch-wrapper">
+  <div v-if="stopwatch.isActive" class="stopwatch-wrapper bg-teal-900 px-6 py-2 flex items-center">
     <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
     <div class="control-buttons-wrapper">
       <button
         id="pause-button"
-        class="control-buttons"
+        class="rounded-full bg-cyan-300 px-6 py-2 font-medium"
         @click="pauseCurrentTimer"
-        v-if="stopwatch.isActive"
+        v-if="stopwatch.isRunning"
       >
         Pause
       </button>
       <button
         id="clear-button"
-        class="control-buttons"
+        class="rounded-full bg-cyan-300 px-6 py-2 font-medium"
         @click="resumeCurrentTimer"
         v-else
       >
         Resume
+      </button>
+      <button v-if="!stopwatch.isRunning" class="rounded-full bg-rose-700 px-6 py-2 text-white" @click="deleteCurrentTimer">
+        
+        Delete
       </button>
     </div>
   </div>

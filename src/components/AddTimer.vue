@@ -9,7 +9,7 @@ const props = defineProps({});
 </script>
 
 <template>
-  <div class="active-timers__wrapper">
+  <div class="active-timers__wrapper bg-cyan-100">
     <div
       class="active-timers__inner"
       v-for="item in mainStore.numberOfActiveTimers"
@@ -28,7 +28,6 @@ const props = defineProps({});
   position: fixed;
   display: flex;
   justify-content: flex-end;
-  background: blue;
   width: 100%;
   left: 0;
   bottom: 0;
