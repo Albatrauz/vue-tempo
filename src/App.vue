@@ -16,8 +16,8 @@ import AddTimer from './components/AddTimer.vue';
 
 <style>
 #app {
-  @import url('https://fonts.googleapis.com/css2?family=League+Spartan&display=swap');
-  font-family: 'League Spartan', sans-serif;
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;800&display=swap');
+  font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

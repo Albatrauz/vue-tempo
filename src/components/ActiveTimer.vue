@@ -8,7 +8,10 @@ const stopwatch = reactive({
   startTime: 0,
   intervalId: '',
   isRunning: false,
-  isActive: false
+  isActive: false,
+  details: {
+
+  }
 });
 
 function startStopwatch() {
@@ -48,19 +51,19 @@ const resumeCurrentTimer = () => {
   startStopwatch();
   stopwatch.isRunning = true;
 };
+
+const toggleInfo = () => {
+  console.log('dit is de info window')
+}
 </script>
 
 <template>
-  <div class="active-timer">
-    <div class="active-timer--play"></div>
-  </div>
-
-  <div v-if="stopwatch.isActive" class="stopwatch-wrapper bg-teal-900 px-6 py-2 flex items-center">
-    <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
+  <div v-if="stopwatch.isActive" class="stopwatch-wrapper bg-lead px-3 ml-2 py-2 flex items-center rounded-full">
+    <div class="active-timer__time" @click="toggleInfo">{{ stopwatch.currentTime }}</div>
     <div class="control-buttons-wrapper">
       <button
         id="pause-button"
-        class="rounded-full bg-cyan-300 px-6 py-2 font-medium"
+        class="rounded-full bg-secondary px-6 py-2 font-medium ml-6 text-blank hover:bg-secondary/60"
         @click="pauseCurrentTimer"
         v-if="stopwatch.isRunning"
       >
@@ -68,13 +71,13 @@ const resumeCurrentTimer = () => {
       </button>
       <button
         id="clear-button"
-        class="rounded-full bg-cyan-300 px-6 py-2 font-medium"
+        class="rounded-full bg-secondary px-6 py-2 font-medium text-blank hover:bg-secondary/60"
         @click="resumeCurrentTimer"
         v-else
       >
         Resume
       </button>
-      <button v-if="!stopwatch.isRunning" class="rounded-full bg-rose-700 px-6 py-2 text-white" @click="deleteCurrentTimer">
+      <button v-if="!stopwatch.isRunning" class="rounded-full bg-yellow px-3 py-2 text-blank hover:text-blank/60" @click="deleteCurrentTimer">
         
         Delete
       </button>

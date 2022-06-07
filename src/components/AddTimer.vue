@@ -9,7 +9,7 @@ const props = defineProps({});
 </script>
 
 <template>
-  <div class="active-timers__wrapper bg-cyan-100">
+  <div class="active-timers__wrapper">
     <div
       class="active-timers__inner"
       v-for="item in mainStore.numberOfActiveTimers"
@@ -17,7 +17,7 @@ const props = defineProps({});
     >
       <ActiveTimer />
     </div>
-    <div class="start-timer-block" @click="mainStore.numberOfActiveTimers++">
+    <div class="start-timer-block rounded-full text-4xl bg-tertiary hover:bg-tertiary/90 hover:cursor-pointer" @click="mainStore.numberOfActiveTimers++">
       +
     </div>
   </div>
@@ -27,24 +27,21 @@ const props = defineProps({});
 .active-timers__wrapper {
   position: fixed;
   display: flex;
+  padding: 0 12px 12px 0;
   justify-content: flex-end;
+  align-items: center;
   width: 100%;
   left: 0;
   bottom: 0;
 }
 .start-timer-block {
-  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  width: 40px;
-  background-color: red;
+  height: 55px;
+  width: 55px;
   color: white;
-
-  &:hover {
-    background-color: blue;
-    cursor: pointer;
-  }
+  margin-left: 12px;
 }
 </style>
