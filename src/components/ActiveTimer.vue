@@ -1,15 +1,18 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import displayTime from "../utils/displayTime.js";
+import { useCurrentTimer } from "../store/store.js";
+
+const timerStore = useCurrentTimer();
 
 const stopwatch = reactive({
   currentTime: "",
+  endTime: "",
   elapsedTime: 0,
   startTime: 0,
   intervalId: "",
   isRunning: false,
   isActive: false,
-  details: {},
 });
 
 function startStopwatch() {
@@ -40,8 +43,10 @@ const pauseCurrentTimer = () => {
   stopwatch.isRunning = false;
 };
 
-const deleteCurrentTimer = () => {
+const setCurrentTimer = () => {
   stopwatch.isActive = false;
+  stopwatch.endTime = stopwatch.currentTime;
+  timerStore.addTimer(stopwatch);
 };
 
 const resumeCurrentTimer = () => {
@@ -60,31 +65,51 @@ const toggleInfo = () => {
     class="stopwatch-wrapper bg-lead px-3 ml-2 py-2 flex items-center rounded-full"
   >
     <div class="active-timer__time" @click="toggleInfo">{{ stopwatch.currentTime }}</div>
-    <div class="control-buttons-wrapper">
-      <button
-        id="pause-button"
-        class="rounded-full bg-secondary px-6 py-2 font-medium ml-6 text-blank hover:bg-secondary/60"
-        @click="pauseCurrentTimer"
-        v-if="stopwatch.isRunning"
+    <button
+      id="pause-button"
+      class="rounded-full bg-secondary pl-6 font-medium ml-6 hover:bg-secondary/60"
+      @click="pauseCurrentTimer"
+      v-if="stopwatch.isRunning"
+    >
+      <svg
+        class="w-12 h-12 text-blank hover:text-dark"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        Pause
-      </button>
-      <button
-        id="clear-button"
-        class="rounded-full bg-secondary px-6 py-2 font-medium text-blank hover:bg-secondary/60"
-        @click="resumeCurrentTimer"
-        v-else
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <button
+      id="clear-button"
+      class="rounded-full bg-secondary px-6 py-2 font-medium text-blank hover:bg-secondary/60"
+      @click="resumeCurrentTimer"
+      v-else
+    >
+      Resume
+    </button>
+    <button
+      v-if="!stopwatch.isRunning"
+      class="rounded-full bg-yellow px-3 py-2 text-blank hover:text-blank/60"
+      @click="setCurrentTimer"
+    >
+      <svg
+        class="w-8 h-8 text-blank hover:text-dark transition-colors duration-200"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        Resume
-      </button>
-      <button
-        v-if="!stopwatch.isRunning"
-        class="rounded-full bg-yellow px-3 py-2 text-blank hover:text-blank/60"
-        @click="deleteCurrentTimer"
-      >
-        Send
-      </button>
-    </div>
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
   </div>
 </template>
 

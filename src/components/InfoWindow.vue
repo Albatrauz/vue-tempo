@@ -1,16 +1,14 @@
 <script setup>
-    const props = defineProps({
-        
-    });
-
+const props = defineProps({
+  timer: {
+    item: Object,
+  },
+});
 </script>
 <template>
-    <div>
-        <h1> dit is een infowindow</h1>
-    </div>
+  <div class="bg-lead px-3 py-4 rounded-full text-center">
+    <h1 class="text-xl font-bold text-blank">{{ props.timer.endTime }}</h1>
+  </div>
 </template>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
