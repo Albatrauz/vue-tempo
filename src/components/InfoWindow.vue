@@ -6,7 +6,7 @@
 </script>
 <template>
     <div>
-
+        <h1> dit is een infowindow</h1>
     </div>
 </template>
 

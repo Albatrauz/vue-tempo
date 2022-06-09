@@ -2,16 +2,15 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import AddTimer from './components/AddTimer.vue';
+import InfoWindowContainer from './components/InfoWindowContainer.vue';
 </script>
 
 <template>
+  <div class="flex items-center h-screen">
+    <InfoWindowContainer />
+  </div>
   <AddTimer />
   <Timer />
-  <div class="container mx-auto">
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  </div>
 </template>
 
 <style>

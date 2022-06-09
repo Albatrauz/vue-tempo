@@ -1,6 +1,6 @@
 <script setup>
-import ActiveTimer from './ActiveTimer.vue';
-import { useMainStore } from '../store/store.js';
+import ActiveTimer from "./ActiveTimer.vue";
+import { useMainStore } from "../store/store.js";
 
 // get the store
 const mainStore = useMainStore();
@@ -17,7 +17,10 @@ const props = defineProps({});
     >
       <ActiveTimer />
     </div>
-    <div class="start-timer-block rounded-full text-4xl bg-tertiary hover:bg-tertiary/90 hover:cursor-pointer" @click="mainStore.numberOfActiveTimers++">
+    <div
+      class="start-timer-block rounded-full text-4xl bg-tertiary hover:bg-tertiary/90 hover:cursor-pointer"
+      @click="mainStore.numberOfActiveTimers++"
+    >
       +
     </div>
   </div>
@@ -35,7 +38,7 @@ const props = defineProps({});
   bottom: 0;
 }
 .start-timer-block {
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
