@@ -1,9 +1,8 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import displayTime from "../utils/displayTime.js";
+import InfoModal from "./InfoModal.vue";
 import { useCurrentTimer } from "../store/store.js";
-
-const timerStore = useCurrentTimer();
 
 const stopwatch = reactive({
   currentTime: "",
@@ -13,6 +12,9 @@ const stopwatch = reactive({
   intervalId: "",
   isRunning: false,
   isActive: false,
+  isModalActive: false,
+  title: "",
+  description: "",
 });
 
 function startStopwatch() {
@@ -43,28 +45,25 @@ const pauseCurrentTimer = () => {
   stopwatch.isRunning = false;
 };
 
-const setCurrentTimer = () => {
+const setCurrentTimerText = () => {
   stopwatch.isActive = false;
   stopwatch.endTime = stopwatch.currentTime;
-  timerStore.addTimer(stopwatch);
+  stopwatch.isModalActive = true;
 };
 
 const resumeCurrentTimer = () => {
   startStopwatch();
   stopwatch.isRunning = true;
 };
-
-const toggleInfo = () => {
-  console.log("dit is de info window");
-};
 </script>
 
 <template>
+  <InfoModal :timer="stopwatch" v-if="stopwatch.isModalActive" />
   <div
     v-if="stopwatch.isActive"
-    class="stopwatch-wrapper bg-lead px-3 ml-2 py-2 flex items-center rounded-full"
+    class="stopwatch-wrapper bg-lead px-3 ml-2 py-2 flex items-center rounded-full flex-row"
   >
-    <div class="active-timer__time" @click="toggleInfo">{{ stopwatch.currentTime }}</div>
+    <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
     <button
       id="pause-button"
       class="rounded-full bg-secondary pl-6 font-medium ml-6 hover:bg-secondary/60"
@@ -95,7 +94,7 @@ const toggleInfo = () => {
     <button
       v-if="!stopwatch.isRunning"
       class="rounded-full bg-yellow px-3 py-2 text-blank hover:text-blank/60"
-      @click="setCurrentTimer"
+      @click="setCurrentTimerText"
     >
       <svg
         class="w-8 h-8 text-blank hover:text-dark transition-colors duration-200"
