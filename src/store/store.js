@@ -11,11 +11,10 @@ export const useMainStore = defineStore("mainStore", {
 export const useCurrentTimer = defineStore("currentTimer", {
   state: () => ({
     timers: [],
-    id: 0,
   }),
   actions: {
-    addTimer(item) {
-      this.timers.push({ item, id: this.id++ });
+    addTimer(item) {  
+      this.timers.push({ item });
     },
   },
 });
