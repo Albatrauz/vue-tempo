@@ -1,7 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createPinia, defineStore } from "pinia";
+import supabase from './utils/supabase';
 import "./index.css";
+
+console.log(import.meta.env.VITE_SUPABASE_URL);
 
 export const useStore = defineStore("main");
 
