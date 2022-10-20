@@ -1,6 +1,6 @@
 <script setup>
-import { storeToRefs } from "pinia";
-import { useCurrentTimer } from "../store/store";
+import { storeToRefs } from 'pinia';
+import { useCurrentTimer } from '../store/store';
 const timerCollection = useCurrentTimer();
 const { timerList } = storeToRefs(timerCollection);
 const timerStore = useCurrentTimer();
@@ -17,7 +17,7 @@ const saveTimeEntry = (timer) => {
 </script>
 <template>
   <div
-    class="bg-dark/90 fixed inset-0 flex justify-center items-center w-screen h-screen"
+    class="bg-black/60 fixed inset-0 flex justify-center items-center w-screen h-screen backdrop-blur-sm"
   >
     <div class="bg-tertiary rounded-full w-3/6 flex flex-col px-20 py-10">
       <input v-model="props.timer.title" class="mb-3" type="text" />

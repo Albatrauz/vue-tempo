@@ -8,14 +8,13 @@ const timerCollection = useCurrentTimer();
 const { timerList } = storeToRefs(timerCollection);
 
 const reopenModal = (timer) => {
-  console.log('got here');
   timer.item.isModalActive = true;
 };
 </script>
 
 <template class="">
   <div
-    class="container w-full bg-secondary-100 h-auto mx-auto grid grid-cols-3 rounded-3xl p-12 gap-6"
+    class="container w-full bg-secondary h-auto mx-auto grid grid-cols-3 rounded-3xl p-12 gap-6"
   >
     <div v-for="timer in timerCollection.timers" :key="id">
       <InfoWindow @click="reopenModal(timer)" :timer="timer.item" />

@@ -1,15 +1,14 @@
 module.exports = {
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     colors: {
-      lead: "#FF6363",
-      secondary: {
-        100: "#edc65f",
-        400: "#F8B400",
-      },
-      tertiary: "#125B50",
-      blank: "#FAF5E4",
-      dark: "#354259",
+      lead: '#EEF3D2',
+      secondary: '#947EC3',
+      tertiary: '#6A67CE',
+      blank: '#FAF5E4',
+      dark: '#6A67CE',
+      green: '#99FFCD',
+      black: '#000',
     },
     extend: {},
   },

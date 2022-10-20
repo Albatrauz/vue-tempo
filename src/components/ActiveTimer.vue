@@ -1,20 +1,20 @@
 <script setup>
-import { onMounted, reactive } from "vue";
-import displayTime from "../utils/displayTime.js";
-import InfoModal from "./InfoModal.vue";
-import { useCurrentTimer } from "../store/store.js";
+import { onMounted, reactive } from 'vue';
+import displayTime from '../utils/displayTime.js';
+import InfoModal from './InfoModal.vue';
+import { useCurrentTimer } from '../store/store.js';
 
 const stopwatch = reactive({
-  currentTime: "",
-  endTime: "",
+  currentTime: '',
+  endTime: '',
   elapsedTime: 0,
   startTime: 0,
-  intervalId: "",
+  intervalId: '',
   isRunning: false,
   isActive: false,
   isModalActive: false,
-  title: "",
-  description: "",
+  title: '',
+  description: '',
 });
 
 function startStopwatch() {
@@ -23,7 +23,8 @@ function startStopwatch() {
   //run `setInterval()` and save id
   stopwatch.intervalId = setInterval(() => {
     //calculate elapsed time
-    const elapsedTime = Date.now() - stopwatch.startTime + stopwatch.elapsedTime;
+    const elapsedTime =
+      Date.now() - stopwatch.startTime + stopwatch.elapsedTime;
     //calculate different time measurements based on elapsed time
     const seconds = parseInt((elapsedTime / 1000) % 60);
     const minutes = parseInt((elapsedTime / (1000 * 60)) % 60);
@@ -61,7 +62,7 @@ const resumeCurrentTimer = () => {
   <InfoModal :timer="stopwatch" v-if="stopwatch.isModalActive" />
   <div
     v-if="stopwatch.isActive"
-    class="stopwatch-wrapper bg-lead px-3 ml-2 py-2 flex items-center rounded-full flex-row"
+    class="stopwatch-wrapper bg-secondary px-3 ml-2 py-2 flex items-center rounded-full flex-row"
   >
     <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
     <button
@@ -71,7 +72,7 @@ const resumeCurrentTimer = () => {
       v-if="stopwatch.isRunning"
     >
       <svg
-        class="w-12 h-12 text-blank hover:text-dark"
+        class="w-12 h-12 text-lead hover:text-green"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +86,7 @@ const resumeCurrentTimer = () => {
     </button>
     <button
       id="clear-button"
-      class="rounded-full bg-secondary px-6 py-2 font-medium text-blank hover:bg-secondary/60"
+      class="rounded-full bg-secondary px-6 py-2 font-medium text-lead hover:bg-secondary/60"
       @click="resumeCurrentTimer"
       v-else
     >
@@ -93,11 +94,11 @@ const resumeCurrentTimer = () => {
     </button>
     <button
       v-if="!stopwatch.isRunning"
-      class="rounded-full bg-yellow px-3 py-2 text-blank hover:text-blank/60"
+      class="rounded-full bg-yellow px-3 py-2 text-lead hover:text-blank/60"
       @click="setCurrentTimerText"
     >
       <svg
-        class="w-8 h-8 text-blank hover:text-dark transition-colors duration-200"
+        class="w-8 h-8 text-blank hover:text-lead transition-colors duration-200"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
