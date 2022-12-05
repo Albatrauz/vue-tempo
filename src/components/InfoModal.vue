@@ -17,6 +17,7 @@ const saveTimeEntry = (timer) => {
 </script>
 <template>
   <div
+    v-on:keypress.ctrl.enter="saveTimeEntry(props.timer)"
     class="bg-black/60 fixed inset-0 flex justify-center items-center w-screen h-screen backdrop-blur-sm"
   >
     <div class="bg-tertiary rounded-full w-3/6 flex flex-col px-20 py-10">

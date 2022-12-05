@@ -2,9 +2,6 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { onMounted, ref } from 'vue';
-import AddTimer from './components/AddTimer.vue';
-import InfoWindowContainer from './components/InfoWindowContainer.vue';
-import Auth from './components/Login/Auth.vue';
 import { supabase } from './utils/supabase';
 
 // document.addEventListener('visibilitychange', function () {
@@ -25,12 +22,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <div class="flex items-center h-screen">
-    <InfoWindowContainer />
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/dashboard">Dashboard</router-link> |
+    <router-link v-if="session" to="/profile">Profiel</router-link>
   </div>
-  <AddTimer />
-  <Timer /> -->
-  <Auth></Auth>
+  <router-view />
 </template>
 
 <style>
