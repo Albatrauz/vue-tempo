@@ -1,36 +1,31 @@
 <script setup>
 import { supabase } from '../../utils/supabase';
-import { onMounted, ref, toRefs } from 'vue';
-
-let session;
+import { ref, onBeforeMount} from 'vue';
+let session = ref({});
+let user = ref({})
 
 const loading = ref(true);
 const username = ref('');
 const website = ref('');
 const avatar_url = ref('');
 
-onMounted(() => {
-  getSession();
-});
-
-async function getSession() {
+onBeforeMount(async () => {
   try {
     supabase.auth.getSession().then(({ data }) => {
-      console.log(data);
-      session = data.session;
-    });
-  } catch (error) {
-    console.error(error.message);
-  } finally {
-    console.log(session);
-    getProfile();
+      session.value = data.session;
+    }).then(() => {
+      getProfile();
+    })
   }
-}
+  catch (e) {
+    alert(e);
+  }
+});
 
-async function getProfile(session) {
+async function getProfile() {
   try {
     loading.value = true;
-    const { user } = session;
+    let { user } = session;
     let { data, error, status } = await supabase
       .from('profiles')
       .select(`username, website, avatar_url`)
@@ -63,7 +58,7 @@ async function updateProfile() {
     let { error } = await supabase.from('profiles').upsert(updates);
     if (error) throw error;
   } catch (error) {
-    alert(error.message);
+    alert(error);
   } finally {
     loading.value = false;
   }
@@ -83,7 +78,7 @@ async function signOut() {
 </script>
 
 <template>
-  <!-- <form class="form-widget" @submit.prevent="updateProfile">
+  <form class="form-widget" @submit.prevent="updateProfile">
     <div>
       <label for="email">Email</label>
       <input id="email" type="text" :value="session.user.email" disabled />
@@ -94,7 +89,7 @@ async function signOut() {
     </div>
     <div>
       <label for="website">Website</label>
-      <input id="website" type="website" v-model="website" />
+      <input id="website" type="text" v-model="website" />
     </div>
 
     <div>
@@ -110,5 +105,5 @@ async function signOut() {
         Sign Out
       </button>
     </div>
-  </form> -->
+  </form>
 </template>

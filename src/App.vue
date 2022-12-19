@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/dashboard">Dashboard</router-link> |
+    <router-link v-if="session" to="/dashboard">Dashboard</router-link> |
     <router-link v-if="session" to="/profile">Profiel</router-link>
   </div>
   <router-view />
