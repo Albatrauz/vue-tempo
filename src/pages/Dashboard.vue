@@ -1,6 +1,6 @@
 <script setup>
-import AddTimer from '../AddTimer.vue';
-import InfoWindowContainer from '../InfoWindowContainer.vue';
+import AddTimer from '../components/AddTimer.vue';
+import InfoWindowContainer from '../components/InfoWindowContainer.vue';
 </script>
 
 <template>
@@ -8,5 +8,4 @@ import InfoWindowContainer from '../InfoWindowContainer.vue';
     <InfoWindowContainer />
   </div>
   <AddTimer />
-  <Timer />
 </template>

@@ -1,33 +1,17 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { onMounted, ref } from 'vue';
-import { supabase } from './utils/supabase';
+import AppHeaderVue from "@/components/AppHeader.vue";
 
 // document.addEventListener('visibilitychange', function () {
 //   document.title = document.hidden ? "I'm away" : "I'm here";
 // });
 
-const session = ref();
-
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session;
-  });
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session;
-  });
-});
 </script>
 
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link v-if="session" to="/dashboard">Dashboard</router-link> |
-    <router-link v-if="session" to="/profile">Profiel</router-link>
+  <AppHeaderVue />
+  <div class="max-w-7xl p-10 m-auto">
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <style>
