@@ -12,8 +12,8 @@ const props = defineProps({
 
 const saveTimeEntry = (timer) => {
   timerStore.addTimer(timer);
-  timer.isModalActive = false;
 };
+
 </script>
 <template>
   <div
@@ -31,7 +31,7 @@ const saveTimeEntry = (timer) => {
       ></textarea>
       {{ props.timer }}
 
-      <div @click="saveTimeEntry(props.timer)" class="btn inline-block bg-lead">
+      <div @click="$emit('close')" class="btn inline-block bg-lead">
         Save entry
       </div>
     </div>

@@ -18,8 +18,8 @@ const form = ref({
 const handleSubmit = async () => {
   try {
     // use the register method from the AuthUser composable
-    console.log(form.value.email);
-    await register(form.value.name);
+    // console.log(form.value.email);
+    await register(form.value);
 
     // and redirect to a EmailConfirmation page the will instruct
     // the user to confirm they're email address

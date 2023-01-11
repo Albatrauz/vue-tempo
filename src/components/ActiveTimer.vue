@@ -59,7 +59,7 @@ const resumeCurrentTimer = () => {
 </script>
 
 <template>
-  <InfoModal :timer="stopwatch" v-if="stopwatch.isModalActive" />
+  <InfoModal :timer="stopwatch"  v-if="stopwatch.isModalActive" />
   <div
     v-if="stopwatch.isActive"
     class="stopwatch-wrapper bg-secondary px-3 ml-2 py-2 flex items-center rounded-full flex-row"

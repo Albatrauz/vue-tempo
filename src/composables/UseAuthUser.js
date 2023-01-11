@@ -4,7 +4,7 @@ import { ref } from "vue";
 const user = ref(null);
 
 export default function useAuthUser() {
-    const supabase = useSupabase();
+    const { supabase } = useSupabase();
     const login = async ({ email, password }) => {
         const { user, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -20,17 +20,13 @@ export default function useAuthUser() {
         if (error) throw error;
     };
 
-    const register = async ({ email, password, ...meta }) => {
-        const { user, error } = await supabase.auth.signUp(
-            { email, password },
-            {
-                //arbitrary meta data is passed as the second argument under a data key
-                // to the Supabase signUp method
-                data: meta,
-                // the to redirect to after the user confirms their email
-                redirectTo: `${window.location.origin}/profile?fromEmail=registrationConfirmation"`,
-            }
-        );
+    const register = async ({ email, password }) => {
+        const { user, error } = await supabase.auth.signUp({email, password}, {
+            //arbitrary meta data is passed as the second argument under a data key
+            // to the Supabase signUp method
+            // the to redirect to after the user confirms their email
+            redirectTo: `${window.location.origin}/profile?fromEmail=registrationConfirmation"`,
+        });
         if (error) throw error;
         return user;
     };
