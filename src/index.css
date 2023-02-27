@@ -3,5 +3,10 @@
 @tailwind utilities;
 
 body {
-    background-color: #292929;
+    @apply bg-base;
+}
+
+a {
+    @apply text-textBase transition-colors duration-300;
+    @apply hover:text-springGreenHover
 }

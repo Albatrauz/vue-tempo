@@ -14,12 +14,10 @@ import AppHeaderVue from "@/components/AppHeader.vue";
   </div>
 </template>
 
-<style>
+<style lang="postcss">
 #app {
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;800&display=swap');
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 </style>

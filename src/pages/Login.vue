@@ -27,7 +27,7 @@ const handleLogin = async (provider) => {
 };
 </script>
 <template>
-  <div class="max-w-lg m-auto">
+  <div class="login-wrapper">
     <form @submit.prevent="handleLogin()">
       <h1 class="text-3xl mb-5">Login</h1>
       <label>Email <input v-model="form.email" type="email" /></label>
@@ -40,3 +40,8 @@ const handleLogin = async (provider) => {
     </div>
   </div>
 </template>
+<style scoped lang="postcss">
+  .login-wrapper {
+    @apply max-w-lg m-auto bg-base border border-solid border-springGreen rounded-2xl p-4;
+  }
+</style>
