@@ -7,6 +7,6 @@ body {
 }
 
 a {
-    @apply text-textBase transition-colors duration-300;
+    @apply text-text transition-colors duration-300;
     @apply hover:text-springGreenHover
 }

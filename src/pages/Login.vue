@@ -20,7 +20,7 @@ const handleLogin = async (provider) => {
     provider
         ? await loginWithSocialProvider(provider)
         : await login(form.value);
-    router.push({ name: "Me" });
+    router.push({ name: "Dashboard" });
   } catch (error) {
     alert(error.message);
   }
@@ -29,19 +29,56 @@ const handleLogin = async (provider) => {
 <template>
   <div class="login-wrapper">
     <form @submit.prevent="handleLogin()">
-      <h1 class="text-3xl mb-5">Login</h1>
+      <h1 class="login-wrapper__title">Login</h1>
       <label>Email <input v-model="form.email" type="email" /></label>
       <label>Password <input v-model="form.password" type="password" /></label>
-      <button>Login</button>
-      <router-link to="/forgotPassword">Forgot Password?</router-link>
+      <div class="login-wrapper__action">
+        <router-link to="/forgotPassword" class="login-wrapper__forgot">Forgot Password?</router-link>
+        <button class="login__button">Login</button>
+      </div>
     </form>
-    <div class="mt-5">
-      <a @click.prevent="handleLogin('github')">Github</a>
-    </div>
+<!--    <div class="login__button">-->
+<!--      <a @click.prevent="handleLogin('github')">Github</a>-->
+<!--    </div>-->
   </div>
 </template>
 <style scoped lang="postcss">
   .login-wrapper {
-    @apply max-w-lg m-auto bg-base border border-solid border-springGreen rounded-2xl p-4;
+    @apply max-w-lg m-auto bg-tertiary rounded-2xl p-md;
+  }
+
+  .login-wrapper__title {
+    @apply text-3xl font-bold text-text mb-def;
+  }
+
+  label {
+    @apply block text-text flex justify-between flex-col gap-y-xs;
+
+    &:first-of-type {
+      @apply mb-def;
+    }
+
+    &:last-of-type {
+      @apply mb-lg;
+    }
+  }
+  input {
+    @apply bg-base rounded p-4 outline-0;
+
+    &:focus {
+      @apply outline-0;
+    }
+  }
+
+  .login__button {
+    @apply bg-green rounded px-mob py-xs transition-all duration-300 text-lg;
+    @apply hover:bg-base hover:text-green;
+  }
+
+  .login-wrapper__action {
+    @apply flex justify-end items-center gap-sm;
+    .login-wrapper__forgot {
+      @apply text-sm;
+    }
   }
 </style>

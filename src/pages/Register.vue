@@ -34,11 +34,52 @@ const handleSubmit = async () => {
 };
 </script>
 <template>
-  <form class="max-w-lg m-auto" @submit.prevent="handleSubmit">
-    <h1 class="text-3xl mb-5">Register</h1>
-    <label>Name <input v-model="form.name" type="text" /></label>
-    <label>Email <input v-model="form.email" type="email" /></label>
-    <label>Password <input v-model="form.password" type="password" /></label>
-    <button>Register</button>
-  </form>
+  <div class="login-wrapper">
+    <form @submit.prevent="handleSubmit">
+      <h1 class="login-wrapper__title">Register</h1>
+      <label>Name <input v-model="form.name" type="text" /></label>
+      <label>Email <input v-model="form.email" type="email" /></label>
+      <label>Password <input v-model="form.password" type="password" /></label>
+      <div class="login-wrapper__action">
+        <button class="login__button">Register</button>
+      </div>
+    </form>
+  </div>
 </template>
+<style scoped lang="postcss">
+  .login-wrapper {
+    @apply max-w-lg m-auto bg-tertiary rounded-2xl p-md;
+  }
+
+  .login-wrapper__title {
+    @apply text-3xl font-bold text-text mb-def;
+  }
+
+  label {
+    @apply block text-text flex justify-between flex-col gap-y-xs;
+
+    &:not(:last-of-type) {
+      @apply mb-def;
+    }
+
+    &:last-of-type {
+      @apply mb-lg;
+    }
+  }
+  input {
+    @apply bg-base rounded p-4 outline-0;
+
+    &:focus {
+      @apply outline-0;
+    }
+  }
+
+  .login-wrapper__action {
+    @apply flex justify-end items-center gap-sm;
+  }
+
+  .login__button {
+    @apply bg-green rounded px-mob py-xs transition-all duration-300 text-lg;
+    @apply hover:bg-base hover:text-green;
+  }
+</style>

@@ -1,18 +1,25 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useCurrentTimer } from '../store/store';
+import { useCurrentTimer } from '@/store/store';
+import {toRaw} from "vue";
 const timerCollection = useCurrentTimer();
-const { timerList } = storeToRefs(timerCollection);
+// const { timerList } = storeToRefs(timerCollection);
 const timerStore = useCurrentTimer();
 const props = defineProps({
-  timer: {
-    item: Object,
-  },
+  timer: Object,
 });
-
 const saveTimeEntry = (timer) => {
   timerStore.addTimer(timer);
+  const rawTimer = toRaw(timer);
+  const rawIntervalId = toRaw(timer.intervalId);
+  console.log(rawTimer);
+  console.log(rawIntervalId);
+  timer.isModalActive = false
 };
+
+// const = editTimerEntry = (timer) => {
+//
+// }
 
 </script>
 <template>
@@ -31,8 +38,8 @@ const saveTimeEntry = (timer) => {
       ></textarea>
       {{ props.timer }}
 
-      <div @click="$emit('close')" class="btn inline-block bg-lead">
-        Save entry
+      <div @click="saveTimeEntry(props.timer)" class="btn inline-block bg-lead">
+        Save entry {{props.timer.intervalId}}
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ export const useCurrentTimer = defineStore("currentTimer", {
   }),
   actions: {
     addTimer(item) {  
-      this.timers.push({ item });
+      this.timers.push(item );
     },
   },
 });
