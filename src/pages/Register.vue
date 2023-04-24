@@ -46,7 +46,7 @@ const handleSubmit = async () => {
     </form>
   </div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
   .login-wrapper {
     @apply max-w-lg m-auto bg-tertiary rounded-2xl p-md;
   }
@@ -56,7 +56,7 @@ const handleSubmit = async () => {
   }
 
   label {
-    @apply block text-text flex justify-between flex-col gap-y-xs;
+    @apply text-text flex justify-between flex-col gap-y-xs;
 
     &:not(:last-of-type) {
       @apply mb-def;

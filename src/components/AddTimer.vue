@@ -18,7 +18,7 @@ const props = defineProps({});
       <ActiveTimer />
     </div>
     <div
-      class="start-timer-block rounded-full text-4xl bg-tertiary hover:bg-tertiary/90 hover:cursor-pointer"
+      class="start-timer-block rounded text-4xl bg-tertiary hover:bg-tertiary/40 hover:cursor-pointer"
       @click="mainStore.numberOfActiveTimers++"
     >
       <svg
@@ -49,12 +49,13 @@ const props = defineProps({});
   bottom: 0;
 }
 .start-timer-block {
+  @apply transition-all duration-300;
   font-family: "Outfit", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 55px;
-  width: 55px;
+  height: 64px;
+  width: 64px;
   color: white;
   margin-left: 12px;
 }

@@ -47,7 +47,6 @@ const pauseCurrentTimer = () => {
 };
 
 const setCurrentTimerText = () => {
-  stopwatch.isActive = false;
   stopwatch.endTime = stopwatch.currentTime;
   stopwatch.isModalActive = true;
 };
@@ -59,21 +58,20 @@ const resumeCurrentTimer = () => {
 </script>
 
 <template>
-  <InfoModal :timer="stopwatch"  v-if="stopwatch.isModalActive" />
+  <InfoModal :timer="stopwatch"  v-if="stopwatch.isModalActive && stopwatch.isActive" />
   <div
     v-if="stopwatch.isActive"
-    class="stopwatch-wrapper bg-secondary px-3 ml-2 py-2 flex items-center rounded-full flex-row"
+    class="stopwatch-wrapper bg-secondary px-3 ml-2 py-2 flex items-center rounded flex-row"
   >
     <div class="active-timer__time">{{ stopwatch.currentTime }}</div>
     <button
       id="pause-button"
-      class="rounded-full bg-secondary pl-6 font-medium ml-6 hover:bg-secondary/60"
+      class="rounded-full pl-6 font-medium ml-6"
       @click="pauseCurrentTimer"
       v-if="stopwatch.isRunning"
     >
       <svg
-        class="w-12 h-12 text-lead hover:text-green"
-        fill="currentColor"
+        class="w-12 h-12 text-lead hover:fill-base fill-green"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -86,7 +84,7 @@ const resumeCurrentTimer = () => {
     </button>
     <button
       id="clear-button"
-      class="rounded-full bg-secondary px-6 py-2 font-medium text-lead hover:bg-secondary/60"
+      class="rounded-full bg-secondary px-6 py-2 font-medium text-base hover:text-green/60"
       @click="resumeCurrentTimer"
       v-else
     >
@@ -98,8 +96,7 @@ const resumeCurrentTimer = () => {
       @click="setCurrentTimerText"
     >
       <svg
-        class="w-8 h-8 text-blank hover:text-lead transition-colors duration-200"
-        fill="currentColor"
+        class="w-8 h-8 text-blank hover:fill-base fill-[#ffffff]"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -122,5 +119,9 @@ const resumeCurrentTimer = () => {
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+button, svg {
+  @apply transition-all duration-300;
 }
 </style>

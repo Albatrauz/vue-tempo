@@ -42,7 +42,7 @@ const handleLogin = async (provider) => {
 <!--    </div>-->
   </div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
   .login-wrapper {
     @apply max-w-lg m-auto bg-tertiary rounded-2xl p-md;
   }
@@ -52,7 +52,7 @@ const handleLogin = async (provider) => {
   }
 
   label {
-    @apply block text-text flex justify-between flex-col gap-y-xs;
+    @apply text-text flex justify-between flex-col gap-y-xs;
 
     &:first-of-type {
       @apply mb-def;
