@@ -1,22 +1,42 @@
 <script setup>
 import { useCurrentTimer } from '@/store/store';
-import {toRaw} from "vue";
-const timerCollection = useCurrentTimer();
+import {ref, defineEmits, onMounted, onBeforeUnmount, watchEffect} from 'vue';
+
+const isVisible = ref(false);
+const toggle = () => {
+  isVisible.value = !isVisible.value
+}
+
 const timerStore = useCurrentTimer();
 const props = defineProps({
   timer: Object,
 });
+
+const emit = defineEmits(['visible', 'hidden'])
+
+onMounted(() => {
+  const unwatch = watchEffect(() => {
+    if (isVisible.value) {
+      emit('visible')
+    } else {
+      emit('hidden')
+    }
+  })
+
+  onBeforeUnmount(() => {
+    unwatch()
+  })
+})
+
 const saveTimeEntry = (timer) => {
   timerStore.addTimer(timer);
-  const rawTimer = toRaw(timer);
-  const rawIntervalId = toRaw(timer.intervalId);
   timer.isModalActive = false
   timer.isActive = false
 };
 </script>
 <template>
   <div
-    v-on:keypress.ctrl.enter="saveTimeEntry(props.timer)"
+    v-on:keypress.ctrl.enter="saveTimeEntry(props.timer)" v-if="isVisible"
     class="bg-black/60 fixed inset-0 flex justify-center items-center w-screen h-screen backdrop-blur-sm"
   >
     <div class="bg-tertiary rounded w-3/6 flex flex-col p-10">

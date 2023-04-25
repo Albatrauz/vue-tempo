@@ -1,8 +1,10 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import displayTime from '../utils/displayTime.js';
 import InfoModal from './InfoModal.vue';
 import { useCurrentTimer } from '../store/store.js';
+const timerStore = useCurrentTimer();
+const isVisible = ref(false);
 
 const stopwatch = reactive({
   currentTime: '',
@@ -33,6 +35,13 @@ function startStopwatch() {
     displayTime(hour, minutes, seconds, stopwatch);
   }, 100);
 }
+const onVisible = () => {
+  isVisible.value = !isVisible.value;
+}
+
+const onHidden = () => {
+  isVisible.value = !isVisible.value;
+}
 
 onMounted(() => {
   startStopwatch();
@@ -46,10 +55,12 @@ const pauseCurrentTimer = () => {
   stopwatch.isRunning = false;
 };
 
-const setCurrentTimerText = () => {
+const setCurrentTimerText = (timer) => {
   stopwatch.endTime = stopwatch.currentTime;
   stopwatch.isModalActive = true;
+  timerStore.addTimer(timer);
 };
+
 
 const resumeCurrentTimer = () => {
   startStopwatch();
@@ -58,7 +69,7 @@ const resumeCurrentTimer = () => {
 </script>
 
 <template>
-  <InfoModal :timer="stopwatch"  v-if="stopwatch.isModalActive && stopwatch.isActive" />
+  <InfoModal :timer="stopwatch" @visible="onVisible" @hidden="onHidden"/>
   <div
     v-if="stopwatch.isActive"
     class="stopwatch-wrapper bg-secondary px-3 ml-2 py-2 flex items-center rounded flex-row"
@@ -93,7 +104,7 @@ const resumeCurrentTimer = () => {
     <button
       v-if="!stopwatch.isRunning"
       class="rounded-full bg-yellow px-3 py-2 text-lead hover:text-blank/60"
-      @click="setCurrentTimerText"
+      @click="setCurrentTimerText(stopwatch)"
     >
       <svg
         class="w-8 h-8 text-blank hover:fill-base fill-[#ffffff]"

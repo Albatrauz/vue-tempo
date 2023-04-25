@@ -1,22 +1,13 @@
 <script setup>
-import ActiveTimer from "./ActiveTimer.vue";
 import { useMainStore } from "../store/store.js";
 
 // get the store
 const mainStore = useMainStore();
 
-const props = defineProps({});
 </script>
 
 <template>
   <div class="active-timers__wrapper">
-    <div
-      class="active-timers__inner"
-      v-for="item in mainStore.numberOfActiveTimers"
-      :key="item"
-    >
-      <ActiveTimer />
-    </div>
     <div
       class="start-timer-block rounded text-4xl bg-tertiary hover:bg-tertiary/40 hover:cursor-pointer"
       @click="mainStore.numberOfActiveTimers++"

@@ -1,19 +1,12 @@
 <script setup>
-import ReviewTimer from './ReviewTimer.vue';
-import { defineEmits } from 'vue';
 const props = defineProps({
   timer: {
     item: Object,
   },
 });
-const emits = defineEmits(['toggle'])
-
-const toggleComponent = () => {
-  emits.toggle;
-}
 </script>
 <template>
-  <div class="bg-base px-6 py-4 rounded-lg flex justify-between" @click="toggleComponent()">
+  <div class="bg-base px-6 py-4 rounded-lg flex justify-between" @click="onVisible">
     <div class="timer-details">      
       <p class="timer-details__title">{{ props.timer.title }}</p>
       <p class="timer-details__description">{{ props.timer.description }}</p>
@@ -22,7 +15,6 @@ const toggleComponent = () => {
       {{ props.timer.endTime }}
     </div>
   </div>
-  <ReviewTimer :toggleVisibility="toggleVisibility" />
 </template>
 
 <style lang="scss" scoped>
